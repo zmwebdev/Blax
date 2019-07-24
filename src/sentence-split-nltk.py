@@ -13,17 +13,12 @@ from nltk.tokenize import sent_tokenize
 nltk.download("punkt", download_dir=".")
 
 parser = argparse.ArgumentParser(description='sentence split')
-parser.add_argument('--config', required=True, type=str, help='config file')
-parser.add_argument('--do_lower_case', action='store_true', help='lowercase sentences')
+parser.add_argument('--text_dir', required=True, type=str, help='Path to the directory containing the text files')
+parser.add_argument('--do_lower_case', action='store_true', help='Boolean for lower case')
 
 args = parser.parse_args()
 
-CURDIR = os.path.dirname(os.path.abspath(__file__))
-CONFIGPATH = os.path.join(CURDIR, os.pardir, args.config)
-config = configparser.ConfigParser()
-config.read(CONFIGPATH)
-
-TEXTDIR = config['DATA']['TEXTDIR']
+TEXTDIR = args.text_dir
 
 
 def _get_text_file(text_dir=TEXTDIR):

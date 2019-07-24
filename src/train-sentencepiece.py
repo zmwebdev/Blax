@@ -1,25 +1,25 @@
+
 #!/usr/bin/env python3
 
 import argparse
-import configparser
+
 import glob
 import os
 import sentencepiece as sp
 
-parser = argparse.ArgumentParser(description='sentencepiece')
-parser.add_argument('--config', required=True, type=str, help='config file')
+parser = argparse.ArgumentParser(description='It will create WordPiece style vocabulary using Sentece')
+
+parser.add_argument('--vocab_size', required=True, type=str, help='Size of the SentencePiece vocabulary')
+parser.add_argument('--text_dir', required=True, type=str, help='Path to the directory containing the text files')
+parser.add_argument('--output', required=False, type=str, default='spModels/blax', help='Path to the output vocab file names')
 parser.add_argument('--unused_number', required=False, type=int, default=100, help='number of unused tokens in vocab if new vocab words want to be used')
 args = parser.parse_args()
 
-CURDIR = os.path.dirname(os.path.abspath(__file__))
-CONFIGPATH = os.path.join(CURDIR, os.pardir, args.config)
-config = configparser.ConfigParser()
-config.read(CONFIGPATH)
 
-TEXTDIR = config['DATA']['TEXTDIR']
-PREFIX = config['SENTENCEPIECE']['PREFIX']
-VOCABSIZE = config['SENTENCEPIECE']['VOCABSIZE']
-CTLSYMBOLS = config['SENTENCEPIECE']['CTLSYMBOLS']
+TEXTDIR = args.text_dir
+PREFIX = args.output
+VOCABSIZE = args.vocab_size
+CTLSYMBOLS = '[CLS],[MASK]'
 #Append the special symbols that are not given as CTLSYMBOLS 
 CTLSYMBOLSLIST = CTLSYMBOLS.split(",")
 CTLSYMBOLSLIST.extend(('[UNK]','[PAD]','[SEP]'))

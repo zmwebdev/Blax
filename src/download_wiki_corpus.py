@@ -8,8 +8,8 @@ CURDIR = os.path.dirname(os.path.abspath(__file__))
 
 parser = argparse.ArgumentParser(description='Download wiki dump and parse it')
 parser.add_argument('--language', required=True, type=str, help='ISO code of the language', choices=['eu', 'es', 'en', 'fr'])
-
-parser.add_argument('--output_path', required=True, type=str, help='output path for the wiki files')
+parser.add_argument('--wikipedia_dump_path', required=True, type=str, help='Path for the wikipedia dump download')
+parser.add_argument('--output_file_path', required=True, type=str, help='Output file path for the wikipedia processed files')
 
 args = parser.parse_args()
 
@@ -29,7 +29,9 @@ def reporthook(blocknum, blocksize, totalsize):
         sys.stderr.write("read %d\n" % (readsofar,))
 
 def extract(wiki_file):
-    subprocess.call(['python3', os.path.join(CURDIR, os.pardir, 'wikiextractor', 'WikiExtractor.py'), wiki_file,"-o={}".format(args.output_path), "--filter_disambig_pages" ])
+    
+    outf = open(args.output_file_path, "w")
+    subprocess.call(['python3', os.path.join(CURDIR, os.pardir, 'wikiextractor', 'WikiExtractor.py'), wiki_file,"-o=-", "--filter_disambig_pages" ], stdout=outf)
 
 def download(lang_iso, output_file):
     if lang_iso == 'eu':
@@ -48,7 +50,7 @@ def download(lang_iso, output_file):
     
 
 def main():
-    output_file = os.path.join(args.output_path, args.language +  'wiki_file.xml.bz2')
+    output_file = os.path.join(args.wikipedia_dump_path, args.language +  'wiki_file.xml.bz2')
     download(args.language, output_file)
     extract(output_file)
 
