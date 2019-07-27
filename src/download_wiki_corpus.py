@@ -30,8 +30,10 @@ def reporthook(blocknum, blocksize, totalsize):
 
 def extract(wiki_file):
     
-    outf = open(args.output_file_path, "w")
-    subprocess.call(['python3', os.path.join(CURDIR, os.pardir, 'wikiextractor', 'WikiExtractor.py'), wiki_file,"-o=-", "--filter_disambig_pages" ], stdout=outf)
+    #outf = open(args.output_file_path, "w")
+    #subprocess.call(['python3', os.path.join(CURDIR, os.pardir, 'wikiextractor', 'WikiExtractor.py'), wiki_file,"-o=-", "--filter_disambig_pages" ], stdout=outf)
+    subprocess.call(['python3', os.path.join(CURDIR, os.pardir, 'wikiextractor', 'WikiExtractor.py'), wiki_file, "-o={}".format(args.output_file_path)])
+
 
 def download(lang_iso, output_file):
     if lang_iso == 'eu':
