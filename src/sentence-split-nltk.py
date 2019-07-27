@@ -22,7 +22,7 @@ TEXTDIR = args.text_dir
 
 
 def _get_text_file(text_dir=TEXTDIR):
-    file_list = glob.glob(f'{text_dir}/**/*')
+    file_list = glob.glob(f'{text_dir}/*/*/*')
     files = ",".join(file_list)
     return files
 
