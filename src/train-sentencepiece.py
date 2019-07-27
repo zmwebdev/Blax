@@ -25,7 +25,7 @@ CTLSYMBOLSLIST = CTLSYMBOLS.split(",")
 CTLSYMBOLSLIST.extend(('[UNK]','[PAD]','[SEP]'))
 
 def _get_text_file(text_dir=TEXTDIR):
-    file_list = glob.glob(f'{text_dir}/*.sent_splited')
+    file_list = glob.glob(f'{text_dir}/*/*.sent_splited')
     files = ",".join(file_list)
     return files
 
