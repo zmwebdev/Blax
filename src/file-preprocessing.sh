@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # Read data_text_dir path from a config file.
-CURDIR=$(cd $(dirname $0); pwd)
+WIKIDIR=$1
 
 # Text preprocessing.
 # Remove <doc id ... line and its next line (title of an article).
-for FILE in $( find ${CURDIR} -name "wiki_*" ); do
+for FILE in $( find ${WIKIDIR} -name "wiki_*" ); do
     echo "Processing ${FILE}"
     sed -i -e '/^$/d; /<doc id/,+1d; s/<\/doc>//g' ${FILE}
 done
