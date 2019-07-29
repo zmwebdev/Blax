@@ -32,6 +32,7 @@ def s_split():
     basic_tokenizer = BasicTokenizer(do_lower_case=args.do_lower_case)
     for file in files.split(","):
         with open(file+".sent_splited", 'wt', encoding='utf-8', errors='ignore') as o:
+            print("Processing {}".format(file))
             with open(file, 'rt', encoding='utf-8', errors='ignore') as f:
                 for p in f:
                     #Do lower case if required
