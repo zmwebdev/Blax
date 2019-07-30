@@ -2,4 +2,5 @@ spModels/
 TF.config
 tokenizers/
 corpus
+.vscode
 
