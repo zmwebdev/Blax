@@ -32,6 +32,11 @@ def _get_text_file(text_dir=TEXTDIR):
 def train(prefix=PREFIX, vocab_size=VOCABSIZE, ctl_symbols=CTLSYMBOLS):
     files = _get_text_file()
     command = f'--normalization_rule_name=identity --input={files} --model_prefix={prefix} --vocab_size={vocab_size} --control_symbols={ctl_symbols} --unk_piece=[UNK] --pad_piece=[PAD] --eos_piece=[SEP] --bos_id=-1 --pad_id=3'
+    # memory issue 6289616 sentences
+    # https://github.com/google/sentencepiece/releases/tag/v0.1.7
+    # Load all sentences by default. --input_sentence_size can be specified to limit the sentences to be loaded
+    #command = f'--normalization_rule_name=identity --input={files} --model_prefix={prefix} --vocab_size={vocab_size} --control_symbols={ctl_symbols} --unk_piece=[UNK] --pad_piece=[PAD] --eos_piece=[SEP] --bos_id=-1 --pad_id=3 --input_sentence_size=3289616'
+
     sp.SentencePieceTrainer.Train(command)
     from_sp_2_wp_syntax()
 
