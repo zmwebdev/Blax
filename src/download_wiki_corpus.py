@@ -43,7 +43,9 @@ def download(lang_iso, output_file):
         url = 'https://dumps.wikimedia.org/frwiki/20190701/frwiki-20190701-pages-articles-multistream.xml.bz2'
         urlretrieve(url, output_file, reporthook)
     elif lang_iso == 'en':
-        url = 'https://dumps.wikimedia.org/enwiki/20190701/enwiki-20190701-pages-articles-multistream.xml.bz2'
+        #url = 'https://dumps.wikimedia.org/enwiki/20190701/enwiki-20190701-pages-articles-multistream.xml.bz2'
+        # 400MB
+        url = 'https://dumps.wikimedia.org/enwiki/20190720/enwiki-20190720-pages-articles-multistream13.xml-p5040438p6197593.bz2'
         urlretrieve(url, output_file, reporthook)
     elif lang_iso == 'es':
         url = 'https://dumps.wikimedia.org/eswiki/20190701/eswiki-20190701-pages-articles-multistream.xml.bz2'        
@@ -53,7 +55,7 @@ def download(lang_iso, output_file):
 
 def main():
     output_file = os.path.join(args.wikipedia_dump_path, args.language +  'wiki_file.xml.bz2')
-    download(args.language, output_file)
+    #download(args.language, output_file)
     extract(output_file)
 
 if __name__=='__main__':
